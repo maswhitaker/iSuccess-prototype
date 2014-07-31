@@ -1,0 +1,190 @@
+ // Bourbon & Neat
+@import '../../bower_components/bourbon/dist/bourbon';
+@import '../../bower_components/neat/app/assets/stylesheets/neat';
+
+// Custom Styles
+
+header{
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(black, gray,white, white);
+
+  h1{
+    padding-top: 30px;
+    color: gold;
+    text-align: center;
+    font-family: Helvetica;
+    font-size: 3em;
+  }
+
+  #logOut{
+    display: none;
+    float: right;
+    height: 60px;
+    width: 60px;
+    border: solid black 2px;
+    border-radius: 10px;
+    margin-top: 0px;
+    background-color: #FFD700;
+    text-align: center;
+
+    a{
+      text-align: center;
+    }
+  }
+
+  #headerLogo{
+    display: none;
+    margin-top: -60px;
+    height: 100px;
+    width: 100px;
+    margin-left: 10px;
+    border-radius: 50%;
+    background-color: blue;
+  }
+}
+
+.login-form{
+  margin-top: -80px;
+  background-color: gold;
+  border: solid grey 15px;
+  border-radius: 30px;
+  padding: 10px;
+  @include outer-container;
+  h3{
+    margin-top: 0px;
+    text-align: center;
+    font-size: 2em;
+    font-family: Sanchez;
+  }
+  input{
+    @include span-columns(4.5);
+    @include shift(1);
+    background-color: lightgrey;
+    margin: 0 0 10 0;
+    padding: 15px;
+  }
+  button{
+    margin-top: 20px;
+    @include button(shiny);
+    @include shift(4);
+  }
+}
+
+.signup-form{
+  margin-top: 20px;
+  background-color: gold;
+  border: solid grey 15px;
+  border-radius: 30px;
+  padding: 10px;
+  @include outer-container;
+  h3{
+    margin-top: 0px;
+    text-align: center;
+    font-size: 2em;
+    font-family: Sanchez;
+  }
+  input{
+    @include span-columns(4.5);
+    @include shift(1);
+    background-color: lightgrey;
+    margin: 0 0 10 0;
+    padding: 15px;
+  }
+  button{
+    margin-top: 20px;
+    @include button(shiny);
+    @include shift(4);
+  }
+}
+
+#lists{
+  #list-header{
+    margin-left: 20px;
+    float: left;
+    h1{
+      font-family: Arial;
+      font-size: 1.5em;
+    }
+  }
+  .add-button{
+    margin-left: 20px;
+    margin-right: 20px;
+    float: left;
+    img{
+      width: 80px;
+      border: solid black 5px;
+      border-radius: 15px;
+      height: 80px;
+    }
+  }
+  .edit-button{
+    margin-left: 20px;
+    margin-right: 20px;
+    float: left;
+    img{
+      width: 80px;
+      height: 80px;
+      border: solid black 5px;
+      border-radius: 15px;
+    }
+  }
+}
+
+#list-items{
+  @include outer-container;
+  clear: both;
+
+  .static-list{
+    @include span-columns(2);
+    @include shift(1);
+    h1{
+      font-size: 1em;
+      font-family: Arial;
+      text-align: center;
+    }
+    div{
+      height: 100px;
+      width: 100px;
+      border-radius: 50%;
+      border: solid black 2px;
+    }
+  }
+}
+
+footer{
+  width: 100%;
+  height: 100px;
+  position: absolute;
+    bottom: 0px;
+  background-color: blue;
+  @include outer-container;
+
+  #friends{
+    margin-top: 30px;
+    @include span-columns(2);
+    button{
+      @include button(pill);
+    }
+  }
+
+  #goal-button{
+    @include span-columns(6);
+    @include shift(1.25);
+    button{
+
+      font-size: 4em;
+      @include button(pill);
+      padding: 40px 70px;
+    }
+
+  }
+  #settings-button{
+    margin-top: 30px;
+    @include span-columns(2);
+
+    button{
+      @include button(pill);
+    }
+  }
+}
