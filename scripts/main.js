@@ -99,11 +99,22 @@ var LogInView = Parse.View.extend({
     },
 
     render: function() {
+      // home route
       if (Parse.User.current()) {
         new HomepageView();
       } else {
         new LogInView();
       }
+    }
+  });
+
+  var AppRouter = Parse.Router.extend({
+    routes: {
+      "home":"homePage",
+
+    },
+    homePage: function(){
+      
     }
   });
 
