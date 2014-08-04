@@ -98,6 +98,10 @@ header{
   }
 }
 
+#adding{
+  display: none;
+}
+
 #lists{
   #list-header{
     margin-left: 20px;
@@ -187,4 +191,8 @@ footer{
       @include button(pill);
     }
   }
+}
+
+#extra-task{
+  display: none;
 }
