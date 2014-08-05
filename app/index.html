@@ -33,21 +33,32 @@
             <div id="headerLogo">
             </div>
         </header>
-        <form class="login-form">
-          <h3>Log In</h3>
-          <div class="error" style="display:none"></div>
-          <input type="text" id="login-username" placeholder="Username" />
-          <input type="password" id="login-password" placeholder="Password" />
-          <button>Log In</button>
-        </form>
+        <section>
+          <form class="login-form">
+            <h3>Log In</h3>
+            <div class="error" style="display:none"></div>
+            <input type="text" id="login-username" placeholder="Username" />
+            <input type="password" id="login-password" placeholder="Password" />
+            <button>Submit</button>
+          </form>
 
-        <form class="signup-form">
-          <h3>Sign Up</h3>
-          <div class="error" style="display:none"></div>
-          <input type="text" id="signup-username" placeholder="Username" />
-          <input type="password" id="signup-password" placeholder="Create a Password" />
-          <button>Sign Up</button>
-        </form>
+          <form class="signup-form">
+            <h3>Sign Up</h3>
+            <div class="error" style="display:none"></div>
+            <input type="text" id="signup-username" placeholder="Username" />
+            <input type="password" id="signup-password" placeholder="Create a Password" />
+            <button>Submit</button>
+          </form>
+        </section>
+
+
+          <div id="login-footer">
+            <nav>
+              <span><a href="#">icon</a></span>
+              <span><a href="#">icon</a></span>
+              <span><a href="#">icon</a></span>
+            <nav>
+          </div>
     </script>
 
     <script type="text/template" id="home">
@@ -79,6 +90,7 @@
             <hr/>
             <button type="submit" id="add-task">Add Goal</button>
         </div>
+        <span id="goalnames"></span>
 
         <footer>
           <div id="friends">
@@ -92,8 +104,6 @@
           </div>
         </footer>
     </script>
-
-    <span id="goalnames"></span>
 
     <script type="text/template" id="goal-template">
       <footer>
