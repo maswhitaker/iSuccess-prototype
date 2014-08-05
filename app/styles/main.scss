@@ -3,8 +3,12 @@
 @import '../../bower_components/neat/app/assets/stylesheets/neat';
 
 // Custom Styles
+body{
+  background-color: lightgrey;
+}
 
 header{
+  margin-top: -40px;
   width: 100%;
   height: 200px;
   background: linear-gradient(black, gray,white, white);
@@ -46,13 +50,14 @@ header{
 
 .login-form{
   margin-top: -80px;
-  background-color: gold;
+  background-color: blue;
   border: solid grey 15px;
   border-radius: 30px;
   padding: 10px;
   @include outer-container;
   h3{
     margin-top: 0px;
+    color: white;
     text-align: center;
     font-size: 2em;
     font-family: Sanchez;
@@ -73,7 +78,7 @@ header{
 
 .signup-form{
   margin-top: 20px;
-  background-color: gold;
+  background-color: blue;
   border: solid grey 15px;
   border-radius: 30px;
   padding: 10px;
@@ -82,6 +87,7 @@ header{
     margin-top: 0px;
     text-align: center;
     font-size: 2em;
+    color: white;
     font-family: Sanchez;
   }
   input{
@@ -133,28 +139,18 @@ header{
       border-radius: 15px;
     }
   }
+
+
 }
 
-#list-items{
-  @include outer-container;
-  clear: both;
-
-  .static-list{
-    @include span-columns(2);
-    @include shift(1);
-    h1{
-      font-size: 1em;
-      font-family: Arial;
-      text-align: center;
-    }
-    div{
-      height: 100px;
-      width: 100px;
-      border-radius: 50%;
-      border: solid black 2px;
-    }
-  }
+#extra-task-button{
+  @include button(shiny);
 }
+
+#add-task{
+  @include button(shiny);
+}
+
 
 footer{
   width: 100%;

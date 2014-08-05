@@ -1,4 +1,5 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html class="no-js">
   <head>
     <meta charset="utf-8">
@@ -55,12 +56,12 @@
               <img src="../images/Image 2014-07-31 at 12.55.21 PM.png">
             </span>
           </div>
-          <div id="adding">
             <input type="text" placeholder="Enter Goal Name: "id="goal-name">
             <input type="text" placeholder="Enter Goal Description" id="goal-description">
             <input type="text" placeholder="Enter Task Name: "id="name">
             <input type="text" placeholder="Enter Estimated Time" id="estimatedTime">
             <input type="text" placeholder="Enter Task Description" id="description">
+            <hr/>
             <div id="extra-task">
               <input type="text" placeholder="Enter Task Name: " id="extra-name">
               <input type="text" placeholder="Enter Task Time: " id="extra-estimatedTime">
@@ -69,15 +70,9 @@
             <button id="extra-task-button">Extra task</button>
             <hr/>
             <button type="submit" id="add-task">Add Goal</button>
-          </div>
-          <div id="list-items">
-            <span class="static-list">
-              <a href="#/goallist">hello</a>
-              <div>
-              </div>
-            </span>
-          </div>
         </div>
+        <span id="goalnames"></span>
+
         <footer>
           <div id="friends">
             <button>Friends</button>
@@ -104,6 +99,8 @@
         </div>
       </footer>
     </script>
+
+
     <script src="scripts/vendor.js"></script>
 
     <script src="//www.parsecdn.com/js/parse-1.2.19.min.js"></script>

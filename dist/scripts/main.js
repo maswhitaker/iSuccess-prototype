@@ -4,7 +4,11 @@ var Task = Parse.Object.extend("Task", {
   defaults: {
     name: '',
     estimatedTime: 0,
-    description: ''
+    description: '',
+    done: false
+  },
+  toggle: function(){
+    this.save({done: !this.get("done")});
   }
 });
 
@@ -12,24 +16,58 @@ var Tasks = Parse.Collection.extend("Tasks", {
   model: Task
 });
 
-var Goal = Parse.Object.extend("Goal");
+var Goal = Parse.Object.extend("Goal", {
+  name: '',
+  description: '',
+  totalTime: 0
+});
 
 var Goals = Parse.Collection.extend("Goals", {
   model: Goal
 });
 
 
-  var HomepageView = Parse.View.extend({
+var HomepageView = Parse.View.extend({
     el: ".container",
     events: {
       "click .log-out": "logOut",
       "click #add-task": 'addTask',
       "click #extra-task-button": "newTask",
-      "click #show-add": "showAdd"
+      "click .showTasks": "showTasks"
     },
 
     initialize: function() {
+      this.render();
+    },
+
+    render: function(){
       this.$el.html(_.template($("#home").html()));
+      var query = new Parse.Query(Goal);
+      query.include("user");
+      query.equalTo("user", Parse.User.current());
+      query.find({
+        success: function(goals) {
+          for(i=0; i < goals.length; i++){
+            $("#goalnames").append("<li>Goal name: " + goals[i].attributes.name + "</br> Time Required: " + goals[i].attributes.totalTime + "</br> Goal Description: " + goals[i].attributes.description + "</li> <button class='showTasks'>Show Goal's Tasks</button> </br> <div class='" + goals[i].id + "'></div> </br>");
+          }
+        },
+        error: function(object, error) {
+          console.error(error);
+        }
+      });
+    },
+
+    showTasks: function(){
+      var query = new Parse.Query(Task);
+      query.include('user');
+      query.equalTo("user", Parse.User.current());
+      query.find({
+        success: function(tasks){
+          for(i=0; i < tasks.length; i++){
+            $("." + tasks[i].attributes.parent.id).append("<li> Task name: " + tasks[i].attributes.name + "</br> Task Time: " + tasks[i].attributes.estimatedTime + "</br> Done?: </li>");
+          }
+        }
+      });
     },
 
     logOut: function(e) {
@@ -42,53 +80,67 @@ var Goals = Parse.Collection.extend("Goals", {
       goal.set("name", $("#goal-name").val());
       goal.set("description", $("#goal-description").val());
       goal.set("user", Parse.User.current());
-      goal.save().done(function(){
-        console.log("new task")
-        var task = new Task();
-        task.set("name", $("#name").val());
-        task.set("estimatedTime", $("#estimatedTime").val());
-        task.set("description", $("#description").val());
-        task.set("user", Parse.User.current());
-        task.set("parent", goal);
-        task.save().done(function(){
+      var task = new Task();
+      task.set("name", $("#name").val());
+      task.set("estimatedTime", $("#estimatedTime").val());
+      task.set("description", $("#description").val());
+      task.set("user", Parse.User.current());
+      task.set("parent", goal);
+      task.save().done(function(){
           var extraName = $('#extra-name').val();
           var extraTime = $("#extra-estimatedTime").val();
           var extraDescription = $("#extra-description").val();
-          if(extraName != ''){
-            var task = new Task();
-            task.set("name", extraName);
-            task.set("estimatedTime", extraTime);
-            task.set("description", extraDescription);
-            task.set("user", Parse.User.current());
-            task.set("parent", goal);
-            task.save().done(function(){
-              console.log('extra task saved');
-            })
+          if(extraName !== ''){
+            var task2 = new Task();
+            task2.set("name", extraName);
+            task2.set("estimatedTime", extraTime);
+            task2.set("description", extraDescription);
+            task2.set("user", Parse.User.current());
+            task2.set("parent", goal);
+            task2.save().done(function(){
+              console.log("new extra task created");
+              location.reload();
+            });
+          } else{
+            console.log("No new extra task created.");
           }
-        })
-      });
-    },
-    newTask: function(){
-      $("#extra-task").show();
+     });
     },
 
-    showAdd: function(){
-      $("#adding").show();
+    newTask: function(){
+      $("#extra-task").show();
     }
   });
 
 
-
   var GoalView = Parse.View.extend({
+    events: {
+      "click #toggle": "toggleDone",
+      "click destroy": "clear"
+    },
+
     template: _.template($("#goal-template").html()),
+
     initialize: function(){
       $(".container").html(this.el);
       this.render();
     },
+
     render: function(){
       this.$el.html(this.template(this.model.attributes))
+    },
+
+    toggelDone: function(){
+      this.model.toggle();
+    },
+
+    clear: function(){
+      this.model.destroy();
     }
   });
+
+
+
 
 var LogInView = Parse.View.extend({
     events: {
@@ -146,17 +198,16 @@ var LogInView = Parse.View.extend({
     }
   });
 
-
+var goals = new Goals();
 
   var AppRouter = Parse.Router.extend({
     initialize: function(){
-    //  this.fetch = collection.fetch();
+      var test = goals.fetch();
+        console.log(test);
     },
     routes: {
       "":"homePage",
-      "goallist": "goalList",
-      "goallist/:id": "goal",
-      "goallist/:id/input": ""
+      "goallist": "goalList"
     },
     homePage: function(){
       if (Parse.User.current()) {
@@ -167,12 +218,7 @@ var LogInView = Parse.View.extend({
     },
     goalList: function(){
       if (Parse.User.current()){
-        this.fetch.done(function(){
-          $('.container').html('')
-            collection.each(function(item){
-              new GoalView({model: item})
-            });
-          });
+        new GoalView();
       } else {
         new LogInView();
       }
