@@ -58,7 +58,9 @@ var HomepageView = Parse.View.extend({
     },
 
     showTasks: function(){
+      this.$el.html(_.template($("#home").html()));
       var query = new Parse.Query(Task);
+      console.log(query);
       query.include('user');
       query.equalTo("user", Parse.User.current());
       query.find({
