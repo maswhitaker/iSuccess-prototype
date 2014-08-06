@@ -48,7 +48,7 @@ var HomepageView = Parse.View.extend({
       query.find({
         success: function(goals) {
           for(i=0; i < goals.length; i++){
-            $("#goalnames").append("<li>Goal name: " + goals[i].attributes.name + "</br> Time Required: " + goals[i].attributes.totalTime + "</br> Goal Description: " + goals[i].attributes.description + "</li> <button class='showTasks'>Show Goal's Tasks</button> </br> <div class='" + goals[i].id + "'></div> </br>");
+            $("#goalnames").append("<li>Goal name: " + goals[i].attributes.name + "</br> Time Required: " + goals[i].attributes.totalTime + "</br> Goal Description: " + goals[i].attributes.description + "</li> <button class='showTasks'>Show Goal's Tasks</button> </br>  <div class='" + goals[i].id + "'></div> </br>");
           }
         },
         error: function(object, error) {
@@ -58,7 +58,6 @@ var HomepageView = Parse.View.extend({
     },
 
     showTasks: function(){
-      this.$el.html(_.template($("#home").html()));
       var query = new Parse.Query(Task);
       console.log(query);
       query.include('user');
@@ -205,7 +204,6 @@ var goals = new Goals();
   var AppRouter = Parse.Router.extend({
     initialize: function(){
       var test = goals.fetch();
-        console.log(test);
     },
     routes: {
       "":"homePage",
