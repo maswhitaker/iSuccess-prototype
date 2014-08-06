@@ -19,31 +19,29 @@
     <div class="container"></div>
     <div class="goal-container"></div>
 
+
     <script type="text/template" id="login-template">
-        <header>
-            <h1>iSuccess</h1>
-            <div id="headerLogo">
-            </div>
-        </header>
-        <section>
-          <form class="login-form">
-            <h3>Log In</h3>
-            <div class="error" style="display:none"></div>
-            <input type="text" id="login-username" placeholder="Username" />
-            <input type="password" id="login-password" placeholder="Password" />
-            <button>Submit</button>
-          </form>
-
-          <form class="signup-form">
-            <h3>Sign Up</h3>
-            <div class="error" style="display:none"></div>
-            <input type="text" id="signup-username" placeholder="Username" />
-            <input type="password" id="signup-password" placeholder="Create a Password" />
-            <button>Submit</button>
-          </form>
-        </section>
-
-
+        <img id="logo" src="../images/logo-iSuccess.png">
+        <div id="non-logo">
+          <header>
+              <h1>iSuccess</h1>
+          </header>
+          <section>
+            <form class="login-form">
+              <h3>Log In</h3>
+              <div class="error" style="display:none"></div>
+              <input type="text" id="login-username" placeholder="Username" />
+              <input type="password" id="login-password" placeholder="Password" />
+              <button>Submit</button>
+            </form>
+            <form class="signup-form">
+              <h3>Sign Up</h3>
+              <div class="error" style="display:none"></div>
+              <input type="text" id="signup-username" placeholder="Username" />
+              <input type="password" id="signup-password" placeholder="Create a Password" />
+              <button>Submit</button>
+            </form>
+          </section>
           <div id="login-footer">
             <nav>
               <span><a href="#">icon</a></span>
@@ -51,67 +49,53 @@
               <span><a href="#">icon</a></span>
             <nav>
           </div>
+        </div>
     </script>
+
+    <script type="text/template" id="input-template">
+    <h2>Enter Desired Goal:</h2>
+    <input type="text" placeholder="Enter Goal Name: "id="goal-name">
+    <input type="text" placeholder="Enter Goal Description" id="goal-description">
+    <hr/>
+    <h2>Enter Desired Task:</h2>
+    <input type="text" placeholder="Enter Task Name: "id="name">
+    <input type="text" placeholder="Enter Estimated Time" id="estimatedTime">
+    <input type="text" placeholder="Enter Task Description" id="description">
+    <hr/>
+    <div id="extra-task">
+      <input type="text" placeholder="Enter Task Name: " id="extra-name">
+      <input type="text" placeholder="Enter Task Time: " id="extra-estimatedTime">
+      <input type="text" placeholder="Enter Task Description: " id="extra-description">
+    </div>
+    <button type="submit" id="add-task"><a href="#/goallist">Add Goal</a></button>
+    </script>
+
+
     <script type="text/template" id="home">
         <div id="list-container">
           <div id="lists">
             <div id="list-header">
-              <h1>Goals:</h1>
+              <h1>Homepage:</h1>
               <a href="#" class="log-out">Log out</a>
             </div>
             <div id="spans">
               <span class="add-button">
-                <img id="show-add" src="../images/Image 2014-07-31 at 12.55.51 PM.png">
+                <a href="#/input"><img id="show-add" src="../images/Image 2014-07-31 at 12.55.51 PM.png"></a>
               </span>
               <span class="edit-button">
                 <img src="../images/Image 2014-07-31 at 12.55.21 PM.png">
               </span>
             </div>
           </div>
-            <h2>Enter Desired Goal:</h2>
-            <input type="text" placeholder="Enter Goal Name: "id="goal-name">
-            <input type="text" placeholder="Enter Goal Description" id="goal-description">
-            <hr/>
-            <h2>Enter Desired Task:</h2>
-            <input type="text" placeholder="Enter Task Name: "id="name">
-            <input type="text" placeholder="Enter Estimated Time" id="estimatedTime">
-            <input type="text" placeholder="Enter Task Description" id="description">
-            <hr/>
-            <div id="extra-task">
-              <input type="text" placeholder="Enter Task Name: " id="extra-name">
-              <input type="text" placeholder="Enter Task Time: " id="extra-estimatedTime">
-              <input type="text" placeholder="Enter Task Description: " id="extra-description">
-            </div>
-            <button id="extra-task-button">Extra task</button>
-            <hr/>
-            <button type="submit" id="add-task">Add Goal</button>
         </div>
-        <span id="goalnames"></span>
-
         <footer>
-          <div id="friends">
-            <button>Friends</button>
-          </div>
-          <div id="goal-button">
-            <button>G</button>
-          </div>
-          <div id="settings-button">
-            <button>Settings</button>
-          </div>
         </footer>
     </script>
 
     <script type="text/template" id="goal-template">
+    <span id="goalnames"></span>
       <footer>
-        <div id="friends">
-          <button>Friends</button>
-        </div>
-        <div id="goal-button">
-          <button>G</button>
-        </div>
-        <div id="settings-button">
-          <button>Settings</button>
-        </div>
+        <a href="#">BACK</a>
       </footer>
     </script>
 
