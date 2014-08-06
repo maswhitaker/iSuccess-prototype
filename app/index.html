@@ -12,6 +12,7 @@
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="../bower_components/normalize-css/normalize.css" />
+
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -60,23 +61,27 @@
             <nav>
           </div>
     </script>
-
     <script type="text/template" id="home">
-        <a href="#" class="log-out">Log out</a>
         <div id="list-container">
           <div id="lists">
-            <span id="list-header">
+            <div id="list-header">
               <h1>Goals:</h1>
-            </span>
-            <span class="add-button">
-              <img id="show-add" src="../images/Image 2014-07-31 at 12.55.51 PM.png">
-            </span>
-            <span class="edit-button">
-              <img src="../images/Image 2014-07-31 at 12.55.21 PM.png">
-            </span>
+              <a href="#" class="log-out">Log out</a>
+            </div>
+            <div id="spans">
+              <span class="add-button">
+                <img id="show-add" src="../images/Image 2014-07-31 at 12.55.51 PM.png">
+              </span>
+              <span class="edit-button">
+                <img src="../images/Image 2014-07-31 at 12.55.21 PM.png">
+              </span>
+            </div>
           </div>
+            <h2>Enter Desired Goal:</h2>
             <input type="text" placeholder="Enter Goal Name: "id="goal-name">
             <input type="text" placeholder="Enter Goal Description" id="goal-description">
+            <hr/>
+            <h2>Enter Desired Task:</h2>
             <input type="text" placeholder="Enter Task Name: "id="name">
             <input type="text" placeholder="Enter Estimated Time" id="estimatedTime">
             <input type="text" placeholder="Enter Task Description" id="description">
