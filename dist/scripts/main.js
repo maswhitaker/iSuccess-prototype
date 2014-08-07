@@ -62,6 +62,41 @@ var InputView = Parse.View.extend({
 });
 
 
+var SingleGoalView = Parse.View.extend({
+  template: _.template($("#single-goal-template").html()),
+
+  initialize: function(){
+    $(".container").html(this.el);
+    this.render();
+  },
+
+  render: function(){
+    this.$el.html(this.template(this.model));
+    var newQuery = new Parse.Query(Goal);
+    newQuery.equalTo("objectId", this.model.id);
+    newQuery.find({
+      success: function(result){
+        console.log(result);
+      }
+    });
+    var query = new Parse.Query(Task);
+    query.equalTo("user", Parse.User.current());
+    query.matchesQuery("parent", newQuery);
+    query.find({
+      success: function(results){
+        for(i=0;i<results.length;i++){
+          console.log("#" + results[i].attributes.parent.id + "");
+          $("#tasks").append("<ul><li><h4>" + results[i].attributes.name + "</h4><li><h4>" + results[i].attributes.description + "</h4></li><li><h4>" + results[i].attributes.estimatedTime + "</h4></li></ul>");
+        }
+      },
+      error: function(object, error){
+        console.log(error);
+      }
+    });
+  }
+});
+
+
 
 var HomepageView = Parse.View.extend({
     el: ".container",
@@ -88,8 +123,7 @@ var HomepageView = Parse.View.extend({
   var GoalView = Parse.View.extend({
     events: {
       "click #toggle": "toggleDone",
-      "click destroy": "clear",
-      "click .showTasks": "showTasks"
+      "click destroy": "clear"
     },
 
     template: _.template($("#goal-template").html()),
@@ -101,19 +135,6 @@ var HomepageView = Parse.View.extend({
 
     render: function(){
       this.$el.html(this.template(this.model));
-      var query = new Parse.Query(Goal);
-      query.include("user");
-      query.equalTo("user", Parse.User.current());
-      query.find({
-        success: function(goals) {
-          for(i=0; i < goals.length; i++){
-            $("#goalnames").append("<li>Goal name: " + goals[i].attributes.name + "</br> Time Required: " + goals[i].attributes.totalTime + "</br> Goal Description: " + goals[i].attributes.description + "</li> <div class='progress-bar'> <span class='meter' style='width: 60%'></span> </div> <button class='showTasks'>Show Goal's Tasks</button> </br>  <div class='" + goals[i].id + "'></div> </br>");
-          }
-        },
-        error: function(object, error) {
-          console.error(error);
-        }
-      });
     },
 
     toggleDone: function(){
@@ -122,19 +143,6 @@ var HomepageView = Parse.View.extend({
 
     clear: function(){
       this.model.destroy();
-    },
-
-    showTasks: function(){
-      var query = new Parse.Query(Task);
-      query.include('user');
-      query.equalTo("user", Parse.User.current());
-      query.find({
-        success: function(tasks){
-          for(i=0; i < tasks.length; i++){
-            $("." + tasks[i].attributes.parent.id).append("<li> Task name: " + tasks[i].attributes.name + "</br> Task Time: " + tasks[i].attributes.estimatedTime + "</br> Done?: </li>");
-          }
-        }
-      });
     }
   });
 
@@ -200,11 +208,17 @@ var LogInView = Parse.View.extend({
     }
   });
 
+
+
   var AppRouter = Parse.Router.extend({
     routes: {
       "":"homePage",
       "goallist": "goalList",
-      "input": "inputList"
+      "input": "inputList",
+      "goallist/:id": "singleGoal"
+    },
+
+    initialize: function(){
     },
 
     homePage: function(){
@@ -217,7 +231,16 @@ var LogInView = Parse.View.extend({
 
     goalList: function(){
       if (Parse.User.current()){
-        new GoalView();
+        var query = new Parse.Query(Goal);
+        query.include("user");
+        query.equalTo("user", Parse.User.current());
+        query.find({
+          success: function(goals){
+            new GoalView({
+              model: goals
+            });
+          }
+        });
       } else {
         new LogInView();
       }
@@ -226,6 +249,25 @@ var LogInView = Parse.View.extend({
     inputList: function(){
       if (Parse.User.current()){
         new InputView();
+      } else {
+        new LogInView();
+      }
+    },
+
+    singleGoal: function(id){
+      if (Parse.User.current()){
+        var query = new Parse.Query(Goal);
+        query.include("user");
+        query.equalTo('user', Parse.User.current());
+        query.equalTo("objectId", id);
+        query.find({
+          success: function(result){
+            var item = result[0];
+            new SingleGoalView({
+              model: item
+            });
+          }
+        });
       } else {
         new LogInView();
       }
