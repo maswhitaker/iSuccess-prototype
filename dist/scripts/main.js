@@ -55,6 +55,13 @@ var InputView = Parse.View.extend({
       task.set("user", Parse.User.current());
       task.set("parent", goal);
       task.save();
+      var task2 = new Task();
+      task2.set("name", $("#extra-name").val());
+      task2.set("estimatedTime", $("#extra-estimatedTime").val());
+      task2.set("description", $("#extra-description").val());
+      task2.set("user", Parse.User.current());
+      task2.set("parent", goal);
+      task2.save();
    } else {
      alert('please enter content for the goal name');
    }
@@ -63,6 +70,10 @@ var InputView = Parse.View.extend({
 
 
 var SingleGoalView = Parse.View.extend({
+  events: {
+      "click #check": "checkDone"
+  },
+
   template: _.template($("#single-goal-template").html()),
 
   initialize: function(){
@@ -76,7 +87,6 @@ var SingleGoalView = Parse.View.extend({
     newQuery.equalTo("objectId", this.model.id);
     newQuery.find({
       success: function(result){
-        console.log(result);
       }
     });
     var query = new Parse.Query(Task);
@@ -85,9 +95,33 @@ var SingleGoalView = Parse.View.extend({
     query.find({
       success: function(results){
         for(i=0;i<results.length;i++){
-          console.log("#" + results[i].attributes.parent.id + "");
-          $("#tasks").append("<ul><li><h4>" + results[i].attributes.name + "</h4><li><h4>" + results[i].attributes.description + "</h4></li><li><h4>" + results[i].attributes.estimatedTime + "</h4></li></ul>");
+          $("#tasks").append("<ul><li><h4>" + results[i].attributes.name + "</h4><li><h4>" + results[i].attributes.description + "</h4></li><li><h4>" + results[i].attributes.estimatedTime + "</h4></li><li><img src='../images/done-mark.png' id='check'></li></ul>");
         }
+      },
+      error: function(object, error){
+        console.log(error);
+      }
+    });
+  },
+
+  checkDone: function(){
+    var that = this;
+    var newQuery = new Parse.Query(Goal);
+    newQuery.equalTo("objectId", this.model.id);
+    newQuery.find({
+      success: function(result){
+      }
+    });
+    var query = new Parse.Query(Task);
+    query.equalTo("user", Parse.User.current());
+    query.matchesQuery("parent", newQuery);
+    query.find({
+      success: function(results){
+        console.log(results);
+        // for(i=0;i<results.length;i++){
+        //   that.model.set("goalTime", results[i].attributes.estimatedTime);
+        //   that.model.save();
+        // }
       },
       error: function(object, error){
         console.log(error);
@@ -270,6 +304,16 @@ var LogInView = Parse.View.extend({
         });
       } else {
         new LogInView();
+      }
+    },
+
+    addTask: function(id){
+      if(Parse.User.current()){
+        var query = new Parse.Query(Task);
+        query.include("user");
+        query.equalTo("user", Parse.User.current());
+      } else {
+
       }
     }
   });

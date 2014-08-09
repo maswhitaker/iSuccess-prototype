@@ -70,11 +70,10 @@
     <input type="text" placeholder="Enter Estimated Time" id="estimatedTime">
     <input type="text" placeholder="Enter Task Description" id="description">
     <hr/>
-    <div id="extra-task">
-      <input type="text" placeholder="Enter Task Name: " id="extra-name">
-      <input type="text" placeholder="Enter Task Time: " id="extra-estimatedTime">
-      <input type="text" placeholder="Enter Task Description: " id="extra-description">
-    </div>
+    <input type="text" placeholder="Enter Task Name: " id="extra-name">
+    <input type="text" placeholder="Enter Task Time: " id="extra-estimatedTime">
+    <input type="text" placeholder="Enter Task Description: " id="extra-description">
+    <hr/>
     <button type="submit" id="add-task"><a href="#/goallist">Add Goal</a></button>
     </script>
 
@@ -120,12 +119,16 @@
     <section>
       <h1><%= attributes.name %></h1>
       <h2><%= attributes.description %></h2>
-      <div class='progress-bar'> <span class='meter' style='width: 60%'></span>
+      <div class='progress-bar'> <span class='meter' style='width:  100%'></span>
     <div id="tasks"></div>
     </section>
     <footer>
       <a href="#">BACK</a>
     </footer>
+    </script>
+
+    <script type="text/template" id="new-task-template">
+
     </script>
 
 
