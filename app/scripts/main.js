@@ -95,7 +95,7 @@ var SingleGoalView = Parse.View.extend({
     query.find({
       success: function(results){
         for(i=0;i<results.length;i++){
-          $("#tasks").append("<ul><li><h4>" + results[i].attributes.name + "</h4><li><h4>" + results[i].attributes.description + "</h4></li><li><h4>" + results[i].attributes.estimatedTime + "</h4></li><li><img src='../images/done-mark.png' id='check'></li></ul>");
+          $("#tasks").append("<ul><li><h4>" + results[i].attributes.name + "</h4><li><h4>" + results[i].attributes.description + "</h4></li><li><h4>" + results[i].attributes.estimatedTime + "</h4></li><li><a href=''><img src='../images/done-mark.png' id='check'></a></li></ul>");
         }
       },
       error: function(object, error){
@@ -118,10 +118,10 @@ var SingleGoalView = Parse.View.extend({
     query.find({
       success: function(results){
         console.log(results);
-        // for(i=0;i<results.length;i++){
-        //   that.model.set("goalTime", results[i].attributes.estimatedTime);
-        //   that.model.save();
-        // }
+         for(i=0;i<results.length;i++){
+           that.model.set("goalTime", results[i].attributes.estimatedTime);
+           that.model.save();
+         }
       },
       error: function(object, error){
         console.log(error);
@@ -249,7 +249,8 @@ var LogInView = Parse.View.extend({
       "":"homePage",
       "goallist": "goalList",
       "input": "inputList",
-      "goallist/:id": "singleGoal"
+      "goallist/:id": "singleGoal",
+      "goallist/:id/:task": "checkDone"
     },
 
     initialize: function(){
@@ -307,14 +308,8 @@ var LogInView = Parse.View.extend({
       }
     },
 
-    addTask: function(id){
-      if(Parse.User.current()){
-        var query = new Parse.Query(Task);
-        query.include("user");
-        query.equalTo("user", Parse.User.current());
-      } else {
+    checkDone: function(){
 
-      }
     }
   });
   var approuter = new AppRouter();
