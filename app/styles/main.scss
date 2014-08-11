@@ -430,3 +430,49 @@ footer{
     background-position: 40px 0px;
   }
 }
+
+/*       GOALS VIEW      */
+/************************/
+/***********************/
+/**********************/
+/*********************/
+/********************/
+/*******************/
+/******************/
+/*****************/
+/****************/
+/***************/
+/**************/
+/*************/
+/************/
+/***********/
+/**********/
+/*********/
+/********/
+/*******/
+/******/
+/*****/
+/****/
+/***/
+/**/
+
+#bruh{
+  @include outer-container;
+
+  article{
+    @include span-columns(6);
+    text-align: center;
+    background-color: $lightgreen;
+    border: solid $darkblue 4px;
+    border-radius: 50%;
+
+    a{
+      text-decoration: none;
+      color: $darkblue;
+      font-size: 0.8em;
+    }
+    h2{
+      font-size: 0.7em;
+    }
+  }
+}

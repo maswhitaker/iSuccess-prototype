@@ -91,12 +91,19 @@
     </script>
 
     <script type="text/template" id="goal-template">
+    <header>
+      <h1>Goals:</h1>
+    </header>
+    <section id="bruh">
       <% _.each(this.model, function(goal){ %>
-        <a href="#/goallist/<%= goal.id %>">
-          <h1> <%= goal.attributes.name %></h1>
-        </a>
-        <h2><%= goal.attributes.description %></h2>
+        <article>
+          <a href="#/goallist/<%= goal.id %>">
+            <h1> <%= goal.attributes.name %></h1>
+          </a>
+          <h2><%= goal.attributes.description %></h2>
+        </article>
       <% }) %>
+    </section>
 
       <footer>
         <a href="#">BACK</a>
