@@ -92,7 +92,7 @@
 
     <script type="text/template" id="goal-template">
     <header>
-      <h1>Goals:</h1>
+      <h1>Goals:</h1>g
     </header>
     <section id="bruh">
       <% _.each(this.model, function(goal){ %>
@@ -117,7 +117,12 @@
     <section>
       <h1><%= attributes.name %></h1>
       <h2><%= attributes.description %></h2>
-      <div class='progress-bar'> <span class='meter' style='width:  100%'></span>
+      <% setTimeout(function(){ %>
+        <% var remaining = ((attributes.completed) / (attributes.goalTime)) * 100 %>
+        <% var remainingPercentage =  (remaining + "%") %>
+        <%= console.log(remainingPercentage) %>
+      <% }, 3000) %>
+     <div class="progress-bar"> <span class="meter"></span>
     <div id="tasks"></div>
     </section>
     <footer>
@@ -125,9 +130,6 @@
     </footer>
     </script>
 
-    <script type="text/template" id="new-task-template">
-
-    </script>
 
 
     <script src="scripts/vendor.js"></script>
