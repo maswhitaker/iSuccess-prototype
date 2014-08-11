@@ -93,39 +93,41 @@ var SingleGoalView = Parse.View.extend({
     query.find({
       success: function(results){
         for(i=0;i<results.length;i++){
-          $("#tasks").append("<ul><li><h4>" + results[i].attributes.name + "</h4><li><h4>" + results[i].attributes.description + "</h4></li><li><h4>" + results[i].attributes.estimatedTime + "</h4></li><li><img src='../images/done-mark.png' id='check'></li></ul>");
+          $("#tasks").append("<ul><li><h4>" + results[i].attributes.name + "</h4><li><h4>" + results[i].attributes.description + "</h4></li><li><h4>" + results[i].attributes.estimatedTime + "</h4></li><li><a href='#/goallist/" + results[i].attributes.parent.id + "/" + results[i].id +"'><img src='images/done-mark.png'></a></li></ul>");
         }
       },
       error: function(object, error){
         console.log(error);
       }
+    }).done(function(){
+      var newQoory = new Parse.Query(Goal);
+      newQoory.equalTo("objectId", that.model.id);
+      newQoory.find({
+        success: function(result){
+        }
+      });
+      var qoory = new Parse.Query(Task);
+      qoory.equalTo("user", Parse.User.current());
+      qoory.matchesQuery("parent", newQoory);
+      qoory.find({
+        success: function(results){
+          var time = [];
+           for(i=0;i<results.length;i++){
+             time.push(Number(results[i].attributes.estimatedTime));
+           }
+           var sum = _.reduce(time, function(memo, num){
+             return memo + num;
+           });
+           that.model.set("goalTime", sum);
+        },
+        error: function(object, error){
+          console.log(error);
+        }
+      });
+      that.model.save();
     });
     var that = this;
-    var newQoory = new Parse.Query(Goal);
-    newQoory.equalTo("objectId", this.model.id);
-    newQoory.find({
-      success: function(result){
-      }
-    });
-    var qoory = new Parse.Query(Task);
-    qoory.equalTo("user", Parse.User.current());
-    qoory.matchesQuery("parent", newQoory);
-    qoory.find({
-      success: function(results){
-        var time = [];
-         for(i=0;i<results.length;i++){
-           time.push(Number(results[i].attributes.estimatedTime));
-         }
-         var sum = _.reduce(time, function(memo, num){
-           return memo + num;
-         });
-         that.model.set("goalTime", sum);
-      },
-      error: function(object, error){
-        console.log(error);
-      }
-    });
-    this.model.save();
+
   }
 });
 
@@ -308,10 +310,47 @@ var LogInView = Parse.View.extend({
     },
 
     checkDone: function(id, task){
-
+      if (Parse.User.current()){
+        var query = new Parse.Query(Goal);
+        query.include("user");
+        query.equalTo('user', Parse.User.current());
+        query.equalTo("objectId", id);
+        query.find({
+          success: function(result){
+            var completed = null;
+            var newQory = new Parse.Query(Goal);
+            newQory.equalTo("objectId", id);
+            var qory = new Parse.Query(Task);
+            qory.equalTo("user", Parse.User.current());
+            qory.matchesQuery("parent", newQory);
+            qory.equalTo("objectId", task);
+            qory.find({
+              success: function(stuff){
+                 completed = stuff[0].attributes.estimatedTime;
+              }
+            }).done(function(){
+              newQory.find({
+                success: function(stuffs){
+                  //var remaining = ((stuffs[0].attributes.completed) / (stuffs[0].attributes.goalTime)) * 100;
+                  console.log(stuffs[0].attributes);
+              //    var remainingPercentage =  (remaining + "%");
+                //  $(".progress-bar").css("width", remainingPercentage);
+                }
+              });
+              var item = result[0];
+              item.set("completed", completed);
+              new SingleGoalView({
+                model: item
+              });
+            })
+          }
+        });
+      } else {
+        new LogInView();
+      }
     }
   });
-  
+
   var approuter = new AppRouter();
 
 Parse.history.start();
