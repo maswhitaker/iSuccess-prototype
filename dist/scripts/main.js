@@ -131,6 +131,19 @@ var SingleGoalView = Parse.View.extend({
   }
 });
 
+var InfoView = Parse.View.extend({
+
+  template: _.template($("#info-template").html()),
+
+  initialize: function(){
+    $(".container").html(this.el);
+    this.render();
+  },
+
+  render: function(){
+    this.$el.html(this.template(this.model));
+  }
+});
 
 
 var HomepageView = Parse.View.extend({
@@ -197,7 +210,12 @@ var LogInView = Parse.View.extend({
       setTimeout(function(){
         $("#non-logo").css("display", "initial");
         $("#logo").css("display", "none");
+        $("#loginSignup").css("display", "none");
       }, 4000);
+      setTimeout(function(){
+        $("#infoDiv").css("display", "none");
+        $("#loginSignup").css("display", "initial");
+      }, 11000);
     },
 
     logIn: function(e) {
@@ -251,10 +269,8 @@ var LogInView = Parse.View.extend({
       "goallist": "goalList",
       "input": "inputList",
       "goallist/:id": "singleGoal",
-      "goallist/:id/:task": "checkDone"
-    },
-
-    initialize: function(){
+      "goallist/:id/:task": "checkDone",
+      "developerInfo": "info"
     },
 
     homePage: function(){
@@ -329,26 +345,27 @@ var LogInView = Parse.View.extend({
                  completed = stuff[0].attributes.estimatedTime;
               }
             }).done(function(){
-              newQory.find({
-                success: function(stuffs){
-                  //var remaining = ((stuffs[0].attributes.completed) / (stuffs[0].attributes.goalTime)) * 100;
-                  console.log(stuffs[0].attributes);
-              //    var remainingPercentage =  (remaining + "%");
-                //  $(".progress-bar").css("width", remainingPercentage);
-                }
-              });
               var item = result[0];
               item.set("completed", completed);
               new SingleGoalView({
                 model: item
               });
-            })
+            });
           }
         });
       } else {
         new LogInView();
       }
+    },
+
+    info: function(){
+      if(Parse.User.current()){
+        new InfoView();
+      } else {
+        new LogInView();
+      }
     }
+
   });
 
   var approuter = new AppRouter();

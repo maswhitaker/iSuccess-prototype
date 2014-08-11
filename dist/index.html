@@ -24,21 +24,31 @@
         <div id="non-logo">
           <header>
               <h1>iSuccess</h1>
+              <img src="images/logo-iSuccess.png">
           </header>
-          <section>
+          <div id="infoDiv">
+            <p>iSuccess is an application which allows the user to reach their personal goals, in a more organized fashion.</p>
+          </div>
+          <section id="loginSignup">
             <form class="login-form">
               <h3>Log In</h3>
               <div class="error" style="display:none"></div>
+              <h4>Please enter your username</h4>
               <input type="text" id="login-username" placeholder="Username" />
+              <h4>Please enter your password</h4>
               <input type="password" id="login-password" placeholder="Password" />
-              <button>Submit</button>
+              <button>Login</button>
             </form>
             <form class="signup-form">
               <h3>Sign Up</h3>
               <div class="error" style="display:none"></div>
+              <h4>Please enter your desired username</h4>
               <input type="text" id="signup-username" placeholder="Username" />
-              <input type="password" id="signup-password" placeholder="Create a Password" />
-              <button>Submit</button>
+              <h4>Please enter your email</h4>
+              <input type="text" id="signup-email" placeholder="Email"/>
+              <h4>Please enter your desired password</h4>
+              <input type="password" id="signup-password" placeholder="Password" />
+              <button>Register</button>
             </form>
           </section>
           <div id="login-footer">
@@ -87,6 +97,7 @@
           </div>
         </div>
         <footer>
+        <a href="#/developerInfo">Yo</a>
         </footer>
     </script>
 
@@ -120,7 +131,7 @@
       <% setTimeout(function(){ %>
         <% var remaining = ((attributes.completed) / (attributes.goalTime)) * 100 %>
         <% var remainingPercentage =  (remaining + "%") %>
-        <%= console.log(remainingPercentage) %>
+        <%= $(".meter").css("width", remainingPercentage) %>
       <% }, 3000) %>
      <div class="progress-bar"> <span class="meter"></span>
     <div id="tasks"></div>
@@ -128,6 +139,13 @@
     <footer>
       <a href="#">BACK</a>
     </footer>
+    </script>
+
+    <script type="text/template" id="info-template">
+      <h1>Created by:</h1>
+      <h2>Mason Whitaker</h2>
+      <h3>Email: masforwhi@yahoo.com</h3>
+      <h3>Phone: 9194133440</h3>
     </script>
 
 
