@@ -62,9 +62,9 @@
           </section>
           <div id="login-footer">
             <nav>
-              <span><a href="#"><img src="images/github9.svg"></a></span>
+              <span><a href=""><img src="images/github9.svg"></a></span>
               <span><a href="#"><img src="images/linked2.svg"></a></span>
-              <span><a href="#"><img src="images/social38.svg"></a></span>
+              <span><a href="https://twitter.com/masonwhitaker95"><img src="images/social38.svg"></a></span>
             <nav>
           </div>
         </div>
@@ -84,7 +84,9 @@
     <input type="text" placeholder="Enter Task Time: " id="extra-estimatedTime">
     <input type="text" placeholder="Enter Task Description: " id="extra-description">
     <hr/>
-    <button type="submit" id="add-task"><a href="#/goallist">Add Goal</a></button>
+    <button type="submit" id="add-task">
+      <a href="#/goallist">Add Goal</a>
+    </button>
     </script>
 
 
@@ -96,9 +98,6 @@
               <a href="#" class="log-out">Log out</a>
             </div>
             <div id="spans">
-              <span class="add-button">
-                <a href="#/input"><img id="show-add" src="../images/Image 2014-07-31 at 12.55.51 PM.png"></a>
-              </span>
               <span class="edit-button">
                 <a href="#/goallist" ><img src="../images/Image 2014-07-31 at 12.55.21 PM.png"></a>
               </span>
@@ -106,14 +105,22 @@
           </div>
         </div>
         <footer>
-        <a href="#/developerInfo">Yo</a>
+        <a href="#/goallist">
+          <div class="goal-button">
+            <h1>Goals</h1>
+          </div>
+        </a>  
+          <a href="#/developerInfo">Yo</a>
         </footer>
     </script>
 
     <script type="text/template" id="goal-template">
     <header>
-      <h1>Goals:</h1>g
+      <h1>Goals:</h1>
     </header>
+    <span class="add-button">
+      <a href="#/input"><img id="show-add" src="../images/Image 2014-07-31 at 12.55.51 PM.png"></a>
+    </span>
     <section id="bruh">
       <% _.each(this.model, function(goal){ %>
         <article>
