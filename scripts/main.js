@@ -70,11 +70,9 @@ var InputView = Parse.View.extend({
 
 
 var SingleGoalView = Parse.View.extend({
-  events: {
-      "click #check": "checkDone"
-  },
 
   template: _.template($("#single-goal-template").html()),
+
 
   initialize: function(){
     $(".container").html(this.el);
@@ -95,38 +93,39 @@ var SingleGoalView = Parse.View.extend({
     query.find({
       success: function(results){
         for(i=0;i<results.length;i++){
-          $("#tasks").append("<ul><li><h4>" + results[i].attributes.name + "</h4><li><h4>" + results[i].attributes.description + "</h4></li><li><h4>" + results[i].attributes.estimatedTime + "</h4></li><li><a href=''><img src='../images/done-mark.png' id='check'></a></li></ul>");
+          $("#tasks").append("<ul><li><h4>" + results[i].attributes.name + "</h4><li><h4>" + results[i].attributes.description + "</h4></li><li><h4>" + results[i].attributes.estimatedTime + "</h4></li><li><img src='../images/done-mark.png' id='check'></li></ul>");
         }
       },
       error: function(object, error){
         console.log(error);
       }
     });
-  },
-
-  checkDone: function(){
     var that = this;
-    var newQuery = new Parse.Query(Goal);
-    newQuery.equalTo("objectId", this.model.id);
-    newQuery.find({
+    var newQoory = new Parse.Query(Goal);
+    newQoory.equalTo("objectId", this.model.id);
+    newQoory.find({
       success: function(result){
       }
     });
-    var query = new Parse.Query(Task);
-    query.equalTo("user", Parse.User.current());
-    query.matchesQuery("parent", newQuery);
-    query.find({
+    var qoory = new Parse.Query(Task);
+    qoory.equalTo("user", Parse.User.current());
+    qoory.matchesQuery("parent", newQoory);
+    qoory.find({
       success: function(results){
-        console.log(results);
+        var time = [];
          for(i=0;i<results.length;i++){
-           that.model.set("goalTime", results[i].attributes.estimatedTime);
-           that.model.save();
+           time.push(Number(results[i].attributes.estimatedTime));
          }
+         var sum = _.reduce(time, function(memo, num){
+           return memo + num;
+         });
+         that.model.set("goalTime", sum);
       },
       error: function(object, error){
         console.log(error);
       }
     });
+    this.model.save();
   }
 });
 
@@ -308,10 +307,11 @@ var LogInView = Parse.View.extend({
       }
     },
 
-    checkDone: function(){
+    checkDone: function(id, task){
 
     }
   });
+  
   var approuter = new AppRouter();
 
 Parse.history.start();
