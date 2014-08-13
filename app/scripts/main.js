@@ -261,8 +261,6 @@ var LogInView = Parse.View.extend({
     }
   });
 
-
-
   var AppRouter = Parse.Router.extend({
     routes: {
       "":"homePage",
