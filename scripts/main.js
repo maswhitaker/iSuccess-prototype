@@ -26,6 +26,75 @@ var Goals = Parse.Collection.extend("Goals", {
   model: Goal
 });
 
+Parse.initialize("CGiH8mU7FWqmYhm2HXL1KZ2yusLAYc6uLGLxWKOE", "pFMs3sr9uuLC8ITdi6mK2unnU4xVARJ97grozseD");
+
+var GoalView = Parse.View.extend({
+  events: {
+    "click #toggle": "toggleDone",
+    "click destroy": "clear"
+  },
+
+  template: _.template($("#goal-template").html()),
+
+  initialize: function(){
+    $(".container").html(this.el);
+    this.render();
+  },
+
+  render: function(){
+    this.$el.html(this.template(this.model));
+  },
+
+  toggleDone: function(){
+    this.model.toggle();
+  },
+
+  clear: function(){
+    this.model.destroy();
+  }
+});
+
+Parse.initialize("CGiH8mU7FWqmYhm2HXL1KZ2yusLAYc6uLGLxWKOE", "pFMs3sr9uuLC8ITdi6mK2unnU4xVARJ97grozseD");
+
+var HomepageView = Parse.View.extend({
+    el: ".container",
+    events: {
+      "click .log-out": "logOut"
+    },
+
+    initialize: function() {
+      this.render();
+    },
+
+    render: function(){
+      this.$el.html(_.template($("#home").html()));
+    },
+
+
+    logOut: function(e) {
+      Parse.User.logOut();
+      new LogInView();
+    }
+  });
+
+Parse.initialize("CGiH8mU7FWqmYhm2HXL1KZ2yusLAYc6uLGLxWKOE", "pFMs3sr9uuLC8ITdi6mK2unnU4xVARJ97grozseD");
+
+var InfoView = Parse.View.extend({
+
+  template: _.template($("#info-template").html()),
+
+  initialize: function(){
+    $(".container").html(this.el);
+    this.render();
+  },
+
+  render: function(){
+    this.$el.html(this.template(this.model));
+  }
+});
+
+Parse.initialize("CGiH8mU7FWqmYhm2HXL1KZ2yusLAYc6uLGLxWKOE", "pFMs3sr9uuLC8ITdi6mK2unnU4xVARJ97grozseD");
+
 var InputView = Parse.View.extend({
   events: {
     "click #add-task": "addTask"
@@ -68,133 +137,7 @@ var InputView = Parse.View.extend({
   }
 });
 
-
-var SingleGoalView = Parse.View.extend({
-
-  template: _.template($("#single-goal-template").html()),
-
-
-  initialize: function(){
-    $(".container").html(this.el);
-    this.render();
-  },
-
-  render: function(){
-    this.$el.html(this.template(this.model));
-    var newQuery = new Parse.Query(Goal);
-    newQuery.equalTo("objectId", this.model.id);
-    newQuery.find({
-      success: function(result){
-      }
-    });
-    var query = new Parse.Query(Task);
-    query.equalTo("user", Parse.User.current());
-    query.matchesQuery("parent", newQuery);
-    query.find({
-      success: function(results){
-        for(i=0;i<results.length;i++){
-          $("#tasks").append("<ul><li><h4>" + results[i].attributes.name + "</h4><li><h4>" + results[i].attributes.description + "</h4></li><li><h4>" + results[i].attributes.estimatedTime + "</h4></li><li><a href='#/goallist/" + results[i].attributes.parent.id + "/" + results[i].id +"'><img src='images/done-mark.png'></a></li></ul>");
-        }
-      },
-      error: function(object, error){
-        console.log(error);
-      }
-    }).done(function(){
-      var newQoory = new Parse.Query(Goal);
-      newQoory.equalTo("objectId", that.model.id);
-      newQoory.find({
-        success: function(result){
-        }
-      });
-      var qoory = new Parse.Query(Task);
-      qoory.equalTo("user", Parse.User.current());
-      qoory.matchesQuery("parent", newQoory);
-      qoory.find({
-        success: function(results){
-          var time = [];
-           for(i=0;i<results.length;i++){
-             time.push(Number(results[i].attributes.estimatedTime));
-           }
-           var sum = _.reduce(time, function(memo, num){
-             return memo + num;
-           });
-           that.model.set("goalTime", sum);
-        },
-        error: function(object, error){
-          console.log(error);
-        }
-      });
-      that.model.save();
-    });
-    var that = this;
-
-  }
-});
-
-var InfoView = Parse.View.extend({
-
-  template: _.template($("#info-template").html()),
-
-  initialize: function(){
-    $(".container").html(this.el);
-    this.render();
-  },
-
-  render: function(){
-    this.$el.html(this.template(this.model));
-  }
-});
-
-
-var HomepageView = Parse.View.extend({
-    el: ".container",
-    events: {
-      "click .log-out": "logOut"
-    },
-
-    initialize: function() {
-      this.render();
-    },
-
-    render: function(){
-      this.$el.html(_.template($("#home").html()));
-    },
-
-
-    logOut: function(e) {
-      Parse.User.logOut();
-      new LogInView();
-    }
-  });
-
-
-  var GoalView = Parse.View.extend({
-    events: {
-      "click #toggle": "toggleDone",
-      "click destroy": "clear"
-    },
-
-    template: _.template($("#goal-template").html()),
-
-    initialize: function(){
-      $(".container").html(this.el);
-      this.render();
-    },
-
-    render: function(){
-      this.$el.html(this.template(this.model));
-    },
-
-    toggleDone: function(){
-      this.model.toggle();
-    },
-
-    clear: function(){
-      this.model.destroy();
-    }
-  });
-
-
+Parse.initialize("CGiH8mU7FWqmYhm2HXL1KZ2yusLAYc6uLGLxWKOE", "pFMs3sr9uuLC8ITdi6mK2unnU4xVARJ97grozseD");
 
 var LogInView = Parse.View.extend({
     events: {
@@ -261,113 +204,177 @@ var LogInView = Parse.View.extend({
     }
   });
 
+Parse.initialize("CGiH8mU7FWqmYhm2HXL1KZ2yusLAYc6uLGLxWKOE", "pFMs3sr9uuLC8ITdi6mK2unnU4xVARJ97grozseD");
 
+var AppRouter = Parse.Router.extend({
+  routes: {
+    "":"homePage",
+    "goallist": "goalList",
+    "input": "inputList",
+    "goallist/:id": "singleGoal",
+    "goallist/:id/:task": "checkDone",
+    "developerInfo": "info"
+  },
 
-  var AppRouter = Parse.Router.extend({
-    routes: {
-      "":"homePage",
-      "goallist": "goalList",
-      "input": "inputList",
-      "goallist/:id": "singleGoal",
-      "goallist/:id/:task": "checkDone",
-      "developerInfo": "info"
-    },
+  homePage: function(){
+    if (Parse.User.current()) {
+      new HomepageView();
+    } else {
+      new LogInView();
+    }
+  },
 
-    homePage: function(){
-      if (Parse.User.current()) {
-        new HomepageView();
-      } else {
-        new LogInView();
-      }
-    },
+  goalList: function(){
+    if (Parse.User.current()){
+      var query = new Parse.Query(Goal);
+      query.include("user");
+      query.equalTo("user", Parse.User.current());
+      query.find({
+        success: function(goals){
+          new GoalView({
+            model: goals
+          });
+        }
+      });
+    } else {
+      new LogInView();
+    }
+  },
 
-    goalList: function(){
-      if (Parse.User.current()){
-        var query = new Parse.Query(Goal);
-        query.include("user");
-        query.equalTo("user", Parse.User.current());
-        query.find({
-          success: function(goals){
-            new GoalView({
-              model: goals
-            });
-          }
-        });
-      } else {
-        new LogInView();
-      }
-    },
+  inputList: function(){
+    if (Parse.User.current()){
+      new InputView();
+    } else {
+      new LogInView();
+    }
+  },
 
-    inputList: function(){
-      if (Parse.User.current()){
-        new InputView();
-      } else {
-        new LogInView();
-      }
-    },
+  singleGoal: function(id){
+    if (Parse.User.current()){
+      var query = new Parse.Query(Goal);
+      query.include("user");
+      query.equalTo('user', Parse.User.current());
+      query.equalTo("objectId", id);
+      query.find({
+        success: function(result){
+          var item = result[0];
+          new SingleGoalView({
+            model: item
+          });
+        }
+      });
+    } else {
+      new LogInView();
+    }
+  },
 
-    singleGoal: function(id){
-      if (Parse.User.current()){
-        var query = new Parse.Query(Goal);
-        query.include("user");
-        query.equalTo('user', Parse.User.current());
-        query.equalTo("objectId", id);
-        query.find({
-          success: function(result){
+  checkDone: function(id, task){
+    if (Parse.User.current()){
+      var query = new Parse.Query(Goal);
+      query.include("user");
+      query.equalTo('user', Parse.User.current());
+      query.equalTo("objectId", id);
+      query.find({
+        success: function(result){
+          var completed = null;
+          var newQory = new Parse.Query(Goal);
+          newQory.equalTo("objectId", id);
+          var qory = new Parse.Query(Task);
+          qory.equalTo("user", Parse.User.current());
+          qory.matchesQuery("parent", newQory);
+          qory.equalTo("objectId", task);
+          qory.find({
+            success: function(stuff){
+               completed = stuff[0].attributes.estimatedTime;
+            }
+          }).done(function(){
             var item = result[0];
+            item.set("completed", completed);
             new SingleGoalView({
               model: item
             });
-          }
-        });
-      } else {
-        new LogInView();
-      }
-    },
-
-    checkDone: function(id, task){
-      if (Parse.User.current()){
-        var query = new Parse.Query(Goal);
-        query.include("user");
-        query.equalTo('user', Parse.User.current());
-        query.equalTo("objectId", id);
-        query.find({
-          success: function(result){
-            var completed = null;
-            var newQory = new Parse.Query(Goal);
-            newQory.equalTo("objectId", id);
-            var qory = new Parse.Query(Task);
-            qory.equalTo("user", Parse.User.current());
-            qory.matchesQuery("parent", newQory);
-            qory.equalTo("objectId", task);
-            qory.find({
-              success: function(stuff){
-                 completed = stuff[0].attributes.estimatedTime;
-              }
-            }).done(function(){
-              var item = result[0];
-              item.set("completed", completed);
-              new SingleGoalView({
-                model: item
-              });
-            });
-          }
-        });
-      } else {
-        new LogInView();
-      }
-    },
-
-    info: function(){
-      if(Parse.User.current()){
-        new InfoView();
-      } else {
-        new LogInView();
-      }
+          });
+        }
+      });
+    } else {
+      new LogInView();
     }
+  },
 
-  });
+  info: function(){
+    if(Parse.User.current()){
+      new InfoView();
+    } else {
+      new LogInView();
+    }
+  }
 
-  var approuter = new AppRouter();
+});
+
+var approuter = new AppRouter();
 
 Parse.history.start();
+
+Parse.initialize("CGiH8mU7FWqmYhm2HXL1KZ2yusLAYc6uLGLxWKOE", "pFMs3sr9uuLC8ITdi6mK2unnU4xVARJ97grozseD");
+
+var SingleGoalView = Parse.View.extend({
+
+  template: _.template($("#single-goal-template").html()),
+
+
+  initialize: function(){
+    $(".container").html(this.el);
+    this.render();
+  },
+
+  render: function(){
+    this.$el.html(this.template(this.model));
+    var newQuery = new Parse.Query(Goal);
+    newQuery.equalTo("objectId", this.model.id);
+    newQuery.find({
+      success: function(result){
+      }
+    });
+    var query = new Parse.Query(Task);
+    query.equalTo("user", Parse.User.current());
+    query.matchesQuery("parent", newQuery);
+    query.find({
+      success: function(results){
+        for(i=0;i<results.length;i++){
+          $("#tasks").append("<ul><li><h4>" + results[i].attributes.name + "</h4><li><h4>" + results[i].attributes.description + "</h4></li><li><h4>" + results[i].attributes.estimatedTime + "</h4></li><li><a href='#/goallist/" + results[i].attributes.parent.id + "/" + results[i].id +"'><img src='images/done-mark.png'></a></li></ul>");
+        }
+      },
+      error: function(object, error){
+        console.log(error);
+      }
+    }).done(function(){
+      var newQoory = new Parse.Query(Goal);
+      newQoory.equalTo("objectId", that.model.id);
+      newQoory.find({
+        success: function(result){
+        }
+      });
+      var qoory = new Parse.Query(Task);
+      qoory.equalTo("user", Parse.User.current());
+      qoory.matchesQuery("parent", newQoory);
+      qoory.find({
+        success: function(results){
+          var time = [];
+           for(i=0;i<results.length;i++){
+             time.push(Number(results[i].attributes.estimatedTime));
+           }
+           var sum = _.reduce(time, function(memo, num){
+             return memo + num;
+           });
+           that.model.set("goalTime", sum);
+        },
+        error: function(object, error){
+          console.log(error);
+        }
+      });
+      that.model.save();
+    });
+    var that = this;
+
+  }
+});
