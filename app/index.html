@@ -71,22 +71,24 @@
     </script>
 
     <script type="text/template" id="input-template">
-    <h2>Enter Desired Goal:</h2>
-    <input type="text" placeholder="Enter Goal Name: "id="goal-name">
-    <input type="text" placeholder="Enter Goal Description" id="goal-description">
-    <hr/>
-    <h2>Enter Desired Task:</h2>
-    <input type="text" placeholder="Enter Task Name: "id="name">
-    <input type="text" placeholder="Enter Estimated Time" id="estimatedTime">
-    <input type="text" placeholder="Enter Task Description" id="description">
-    <hr/>
-    <input type="text" placeholder="Enter Task Name: " id="extra-name">
-    <input type="text" placeholder="Enter Task Time: " id="extra-estimatedTime">
-    <input type="text" placeholder="Enter Task Description: " id="extra-description">
-    <hr/>
-    <button type="submit" id="add-task">
-      <a href="#/goallist">Add Goal</a>
-    </button>
+    <section>
+      <h2 class="input-header">Enter Desired Goal:</h2>
+      <input type="text" placeholder="Enter Goal Name: "id="goal-name">
+      <input type="text" placeholder="Enter Goal Description" id="goal-description">
+      <hr/>
+      <h2 class="input-header">Enter Desired Task:</h2>
+      <input type="text" placeholder="Enter Task Name: "id="name">
+      <input type="text" placeholder="Enter Estimated Time" id="estimatedTime">
+      <input type="text" placeholder="Enter Task Description" id="description">
+      <hr/>
+      <input type="text" placeholder="Enter Task Name: " id="extra-name">
+      <input type="text" placeholder="Enter Task Time: " id="extra-estimatedTime">
+      <input type="text" placeholder="Enter Task Description: " id="extra-description">
+      <hr/>
+      <button type="submit" id="add-task">
+        <a href="#/goallist">Add Goal</a>
+      </button>
+    </section>
     </script>
 
 
@@ -95,32 +97,38 @@
           <div id="lists">
             <div id="list-header">
               <h1>Homepage:</h1>
-              <a href="#" class="log-out">Log out</a>
             </div>
             <div id="spans">
-              <span class="edit-button">
-                <a href="#/goallist" ><img src="../images/Image 2014-07-31 at 12.55.21 PM.png"></a>
-              </span>
             </div>
           </div>
         </div>
-        <footer>
-        <a href="#/goallist">
-          <div class="goal-button">
-            <h1>Goals</h1>
+
+        <div id="account-info"></div>
+
+      <footer>
+        <a href="#/developerInfo">
+          <div id="anchor-info">
+            <h2>Contact</h2>
           </div>
         </a>
-          <a href="#/developerInfo">Yo</a>
-        </footer>
+          <a href="#/goallist">
+            <div class="goal-button">
+              <h1>Goals</h1>
+            </div>
+          </a>
+          <a href="#" class="log-out">
+            <div id="logout">
+              <h2>Log Out</h2>
+            </div>
+          </a>
+      </footer>
     </script>
 
     <script type="text/template" id="goal-template">
-    <header>
+    <a href="#" id="backbutton">Back</a>
+    <header id="goal-header">
       <h1>Goals:</h1>
     </header>
-    <span class="add-button">
-      <a href="#/input"><img id="show-add" src="../images/Image 2014-07-31 at 12.55.51 PM.png"></a>
-    </span>
     <section id="bruh">
       <% _.each(this.model, function(goal){ %>
         <article>
@@ -132,9 +140,23 @@
       <% }) %>
     </section>
 
-      <footer>
-        <a href="#">BACK</a>
-      </footer>
+    <footer>
+      <a href="#/developerInfo">
+        <div id="anchor-info">
+          <h2>Contact</h2>
+        </div>
+      </a>
+        <a href="#/input">
+          <div class="goal-button">
+            <h1>Add</h1>
+          </div>
+        </a>
+        <a href="#" class="log-out">
+          <div id="logout">
+            <h2>Log Out</h2>
+          </div>
+        </a>
+    </footer>
     </script>
 
 
