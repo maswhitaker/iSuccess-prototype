@@ -163,7 +163,8 @@
 
 
     <script type="text/template" id="single-goal-template">
-    <section>
+    <a href="#" id="backbutton">Back</a>
+    <section id="single">
       <h1><%= attributes.name %></h1>
       <h2><%= attributes.description %></h2>
       <% setTimeout(function(){ %>
@@ -172,11 +173,8 @@
         <%= $(".meter").css("width", remainingPercentage) %>
       <% }, 3000) %>
      <div class="progress-bar"> <span class="meter"></span>
-    <div id="tasks"></div>
+     <div id="tasks"></div>
     </section>
-    <footer>
-      <a href="#">BACK</a>
-    </footer>
     </script>
 
     <script type="text/template" id="info-template">
