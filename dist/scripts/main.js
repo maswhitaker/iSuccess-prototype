@@ -69,7 +69,7 @@ var HomepageView = Parse.View.extend({
       query.find({
         success: function(results){
           console.log(results[0].attributes.username)
-          $("account-info").append("<h1>" + results[0].attributes.username + "</h1>");
+          $("#account").append("<h1>" + results[0].attributes.username + "</h1>");
         },
         error: function(object, error){
           console.log('damn')
@@ -160,15 +160,15 @@ var LogInView = Parse.View.extend({
     initialize: function() {
       _.bindAll(this, "logIn", "signUp");
       this.render();
-      setTimeout(function(){
-        $("#non-logo").css("display", "initial");
-        $("#logo").css("display", "none");
-        $("#loginSignup").css("display", "none");
-      }, 4000);
-      setTimeout(function(){
-        $("#infoDiv").css("display", "none");
-        $("#loginSignup").css("display", "initial");
-      }, 11000);
+      // setTimeout(function(){
+      //   $("#non-logo").css("display", "initial");
+      //   $("#logo").css("display", "none");
+      //   $("#loginSignup").css("display", "none");
+      // }, 4000);
+      // setTimeout(function(){
+      //   $("#infoDiv").css("display", "none");
+      //   $("#loginSignup").css("display", "initial");
+      // }, 11000);
     },
 
     logIn: function(e) {
@@ -329,6 +329,24 @@ Parse.initialize("CGiH8mU7FWqmYhm2HXL1KZ2yusLAYc6uLGLxWKOE", "pFMs3sr9uuLC8ITdi6
 
 var SingleGoalView = Parse.View.extend({
 
+  events:{
+    "click #image": "remove"
+  },
+
+  remove: function(){
+    var newQuery = new Parse.Query(Goal);
+    newQuery.equalTo("objectId", this.model.id);
+    var query = new Parse.Query(Task);
+    query.equalTo("user", Parse.User.current());
+    query.matchesQuery("parent", newQuery);
+    query.find({
+      success: function(result){
+          $("#"+ result[0].id +"").css("display", "none");
+      }
+    })
+    $("")
+  },
+
   template: _.template($("#single-goal-template").html()),
 
 
@@ -351,7 +369,8 @@ var SingleGoalView = Parse.View.extend({
     query.find({
       success: function(results){
         for(i=0;i<results.length;i++){
-          $("#tasks").append("<ul><li><h4>" + results[i].attributes.name + "</h4><li><h4>" + results[i].attributes.description + "</h4></li><li><h4>" + results[i].attributes.estimatedTime + "</h4></li><li><a href='#/goallist/" + results[i].attributes.parent.id + "/" + results[i].id +"'><img src='images/done-mark.png'></a></li></ul>");
+          console.log(results[i].id);
+          $("#tasks").append("<ul id='" + results[i].id + "'><li><h4>" + results[i].attributes.name + "</h4><li><h4>" + results[i].attributes.description + "</h4></li><li><h4>" + results[i].attributes.estimatedTime + "</h4></li><li><a href='#/goallist/" + results[i].attributes.parent.id + "/" + results[i].id +"'><img id='image' src='images/done-mark.png'></a></li></ul>");
         }
       },
       error: function(object, error){

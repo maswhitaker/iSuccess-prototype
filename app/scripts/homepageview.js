@@ -13,7 +13,7 @@ var HomepageView = Parse.View.extend({
       query.find({
         success: function(results){
           console.log(results[0].attributes.username)
-          $("account-info").append("<h1>" + results[0].attributes.username + "</h1>");
+          $("#account").append("<h1>" + results[0].attributes.username + "</h1>");
         },
         error: function(object, error){
           console.log('damn')

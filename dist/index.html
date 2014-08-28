@@ -20,15 +20,11 @@
 
 
     <script type="text/template" id="login-template">
-        <img id="logo" src="images/logo-iSuccess.png">
         <div id="non-logo">
           <header>
               <h1>iSuccess</h1>
               <img src="images/logo-iSuccess.png">
           </header>
-          <div id="infoDiv">
-            <p>iSuccess is an application which allows the user to reach their personal goals, in a more organized fashion.</p>
-          </div>
           <section id="loginSignup">
             <form class="login-form">
               <h3>Log In</h3>
@@ -44,8 +40,6 @@
               <div class="error" style="display:none"></div>
               <h4>Please enter your desired username</h4>
               <input type="text" id="signup-username" placeholder="Username" />
-              <h4>Please enter your email</h4>
-              <input type="text" id="signup-email" placeholder="Email"/>
               <h4>Please enter your desired password</h4>
               <input type="password" id="signup-password" placeholder="Password" />
               <button>Register</button>
@@ -93,8 +87,8 @@
             </div>
           </div>
         </div>
-
-        <div id="account-info"></div>
+        <div id="account"></div>
+        <div id="account-info">iSuccess is an application that empowers people to achieve their goals, dreams and aspirations.</div>
 
       <footer>
         <a href="#/developerInfo">
@@ -118,7 +112,7 @@
     <script type="text/template" id="goal-template">
     <a href="#" id="backbutton">Back</a>
     <header id="goal-header">
-      <h1>Goals:</h1>
+      <h1>Goals</h1>
     </header>
     <section id="bruh">
       <% _.each(this.model, function(goal){ %>
@@ -132,14 +126,14 @@
     </section>
 
     <footer>
-      <a href="#/developerInfo">
+      <a href="#/input">
         <div id="anchor-info">
-          <h2>Contact</h2>
+          <h2>Add</h2>
         </div>
       </a>
-        <a href="#/input">
+        <a href="#/goallist">
           <div class="goal-button">
-            <h1>Add</h1>
+            <h1>Goals</h1>
           </div>
         </a>
         <a href="#" class="log-out">

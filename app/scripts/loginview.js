@@ -11,15 +11,15 @@ var LogInView = Parse.View.extend({
     initialize: function() {
       _.bindAll(this, "logIn", "signUp");
       this.render();
-      setTimeout(function(){
-        $("#non-logo").css("display", "initial");
-        $("#logo").css("display", "none");
-        $("#loginSignup").css("display", "none");
-      }, 4000);
-      setTimeout(function(){
-        $("#infoDiv").css("display", "none");
-        $("#loginSignup").css("display", "initial");
-      }, 11000);
+      // setTimeout(function(){
+      //   $("#non-logo").css("display", "initial");
+      //   $("#logo").css("display", "none");
+      //   $("#loginSignup").css("display", "none");
+      // }, 4000);
+      // setTimeout(function(){
+      //   $("#infoDiv").css("display", "none");
+      //   $("#loginSignup").css("display", "initial");
+      // }, 11000);
     },
 
     logIn: function(e) {
